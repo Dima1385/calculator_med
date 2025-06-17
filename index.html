@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Облік обстежень</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap');
+
+    body {
+      font-family: 'Rubik', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #b2ebf2);
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 520px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #00796b;
+    }
+    .day-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      align-items: center;
+    }
+    .day-row label {
+      width: 60px;
+      font-weight: 600;
+      color: #004d40;
+    }
+    input[type="number"] {
+      flex: 1;
+      padding: 8px 10px;
+      border: 1px solid #bbb;
+      border-radius: 8px;
+      font-size: 15px;
+      background: #f9f9f9;
+      transition: border-color 0.3s;
+    }
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #00796b;
+      background: #fff;
+    }
+    button {
+      width: 100%;
+      background-color: #00796b;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 18px;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #004d40;
+    }
+    .result {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+      color: #00695c;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Облік обстежень (5 днів)</h2>
+    <form id="examForm">
+      <div id="days"></div>
+      <button type="submit">Обчислити</button>
+    </form>
+    <div class="result" id="result">Сума: 0 грн</div>
+  </div>
+
+  <script>
+    const PRICE = 300;
+    const DAYS = 5;
+    const daysContainer = document.getElementById('days');
+
+    for (let i = 0; i < DAYS; i++) {
+      const row = document.createElement('div');
+      row.className = 'day-row';
+      row.innerHTML = `
+        <label>День ${i + 1}</label>
+        <input type="number" placeholder="Людей" min="0" required id="people-${i}">
+        <input type="number" placeholder="Безплатних" min="0" required id="free-${i}">
+      `;
+      daysContainer.appendChild(row);
+    }
+
+    document.getElementById('examForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let total = 0;
+      for (let i = 0; i < DAYS; i++) {
+        const people = parseInt(document.getElementById(`people-${i}`).value) || 0;
+        const free = parseInt(document.getElementById(`free-${i}`).value) || 0;
+        const paid = Math.max(0, people - free);
+        total += paid * PRICE;
+      }
+      document.getElementById('result').textContent = `Сума: ${total} грн`;
+    });
+  </script>
+</body>
+</html>
