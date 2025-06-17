@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Облік обстежень</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600&display=swap');
@@ -14,6 +14,7 @@
       padding: 20px;
       color: #333;
     }
+
     .container {
       max-width: 520px;
       margin: auto;
@@ -23,62 +24,106 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
       animation: fadeIn 0.5s ease-in-out;
     }
+
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     h2 {
       text-align: center;
       margin-bottom: 25px;
       color: #00796b;
+      font-size: 1.6rem;
     }
+
     .day-row {
       display: flex;
       gap: 10px;
       margin-bottom: 12px;
       align-items: center;
+      flex-wrap: wrap;
     }
+
     .day-row label {
-      width: 60px;
+      width: 100%;
       font-weight: 600;
       color: #004d40;
     }
+
     input[type="number"] {
-      flex: 1;
-      padding: 8px 10px;
+      flex: 1 1 45%;
+      padding: 10px;
       border: 1px solid #bbb;
       border-radius: 8px;
-      font-size: 15px;
+      font-size: 16px;
       background: #f9f9f9;
       transition: border-color 0.3s;
     }
+
     input[type="number"]:focus {
       outline: none;
       border-color: #00796b;
       background: #fff;
     }
+
     button {
       width: 100%;
       background-color: #00796b;
       color: white;
-      padding: 12px;
+      padding: 14px;
       border: none;
       border-radius: 10px;
-      font-size: 17px;
+      font-size: 18px;
       font-weight: bold;
       cursor: pointer;
-      margin-top: 18px;
+      margin-top: 20px;
       transition: background-color 0.3s;
     }
+
     button:hover {
       background-color: #004d40;
     }
+
     .result {
       text-align: center;
-      margin-top: 20px;
-      font-size: 20px;
+      margin-top: 25px;
+      font-size: 22px;
       font-weight: bold;
       color: #00695c;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px 15px;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+      }
+
+      input[type="number"] {
+        flex: 1 1 100%;
+      }
+
+      .day-row {
+        gap: 8px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 12px;
+      }
+
+      .result {
+        font-size: 20px;
+      }
     }
   </style>
 </head>
@@ -108,7 +153,7 @@
       daysContainer.appendChild(row);
     }
 
-    document.getElementById('examForm').addEventListener('submit', function(e) {
+    document.getElementById('examForm').addEventListener('submit', function (e) {
       e.preventDefault();
       let total = 0;
       for (let i = 0; i < DAYS; i++) {
